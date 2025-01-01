@@ -1,0 +1,12 @@
+{
+  "cli": {
+    "version": ">= 0.64.0"
+  },
+  "build": {
+    "android": {
+      "workflow": "managed",
+      "releaseChannel": "default",
+      "buildType": "apk"
+    }
+  }
+}
