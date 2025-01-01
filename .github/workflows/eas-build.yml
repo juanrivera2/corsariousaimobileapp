@@ -3,11 +3,11 @@ name: EAS Build
 on:
   push:
     branches:
-      - main
+      - main  # or the name of your default branch
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04  # Explicitly set to Ubuntu 22.04
     steps:
       - uses: actions/checkout@v3
       - name: Set up Node.js
@@ -15,7 +15,7 @@ jobs:
         with:
           node-version: 16
       - name: Install EAS CLI
-        run: npm install -g eas-cli
+        run: npm install -g eas-cli@latest  # Ensure you're using the latest EAS CLI version
       - name: Log in to Expo
         run: eas login --non-interactive --username ${{ secrets.EXPO_USERNAME }} --password ${{ secrets.EXPO_PASSWORD }}
       - name: Build App
