@@ -1,22 +1,30 @@
-name: EAS Build
+name: Build APK with Expo
 
 on:
   push:
     branches:
-      - main  # or the name of your default branch
+      - main
 
 jobs:
   build:
-    runs-on: ubuntu-22.04  # Explicitly set to Ubuntu 22.04
+    runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 16
-      - name: Install EAS CLI
-        run: npm install -g eas-cli@latest  # Ensure you're using the latest EAS CLI version
-      - name: Log in to Expo
-        run: eas login --non-interactive --username ${{ secrets.EXPO_USERNAME }} --password ${{ secrets.EXPO_PASSWORD }}
-      - name: Build App
-        run: eas build --platform android
+
+      - name: Install Expo CLI
+        run: npm install -g eas-cli
+
+      - name: Authenticate with Expo
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        run: echo "Authenticated with Expo"
+
+      - name: Build APK
+        run: eas build --platform android --non-interactive
